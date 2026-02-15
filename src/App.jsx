@@ -105,7 +105,7 @@ const VIEW_TO_ROUTE = {
 function initialState() {
   return {
     view: getViewFromPath(),
-    theme: localStorage.getItem(THEME_KEY) || "dark",
+    theme: localStorage.getItem(THEME_KEY) || "light",
     sidebarOpen: false,
     mode: "mock",
     sdk: null,
@@ -546,6 +546,7 @@ export default function App() {
           ? "Run quote/swap"
           : "Show activity proof"
   const currentView = views.find((x) => x.id === state.view)?.label || "Workspace"
+  const isDashboardView = state.view === "dashboard"
 
   function startTour() {
     setTourIndex(0)
@@ -697,111 +698,82 @@ export default function App() {
         </div>
       </section>
 
-      <div className="main-layout">
-        <aside className={`sidebar card ${state.sidebarOpen ? "open" : ""}`}>
-          <h3>Sections</h3>
-          <ul className="plain-list nav-list">
-            {views.map((v) => (
-              <li key={v.id}>
-                <button className={`nav-btn nav-side ${state.view === v.id ? "active" : ""}`} onClick={() => goTo(v.id)}>
-                  {v.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <h3>Progress</h3>
-          <ul className="plain-list">
-            <li><Badge ok={checks.hasWallet} /> Wallet configured</li>
-            <li><Badge ok={checks.networkOk} /> Network validated</li>
-            <li><Badge ok={checks.hasPayment} /> Payment sent</li>
-            <li><Badge ok={checks.hasSwap} /> Quote/swap done</li>
-          </ul>
-          <h3>Next step</h3>
-          <p className="muted">{nextStep}</p>
-        </aside>
+      <div className={`main-layout ${isDashboardView ? "dashboard-layout" : ""}`}>
+        {!isDashboardView && (
+          <aside className={`sidebar card ${state.sidebarOpen ? "open" : ""}`}>
+            <h3>Sections</h3>
+            <ul className="plain-list nav-list">
+              {views.map((v) => (
+                <li key={v.id}>
+                  <button className={`nav-btn nav-side ${state.view === v.id ? "active" : ""}`} onClick={() => goTo(v.id)}>
+                    {v.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <h3>Progress</h3>
+            <ul className="plain-list">
+              <li><Badge ok={checks.hasWallet} /> Wallet configured</li>
+              <li><Badge ok={checks.networkOk} /> Network validated</li>
+              <li><Badge ok={checks.hasPayment} /> Payment sent</li>
+              <li><Badge ok={checks.hasSwap} /> Quote/swap done</li>
+            </ul>
+            <h3>Next step</h3>
+            <p className="muted">{nextStep}</p>
+          </aside>
+        )}
 
         <main className="content workspace-content">
           {state.view === "dashboard" && (
-            <>
-              <section className="dashboard-hero card panel">
-                <div>
+            <div className="dashboard-shell">
+              <section className="dash-top grid-2">
+                <section className="dashboard-hero card panel">
                   <p className="eyebrow">Command Center</p>
-                  <h3>Control your Tempo payment stack in a single clean dashboard.</h3>
-                  <p className="muted">Setup wallet, run payments, settle balances, and verify every transaction.</p>
-                  <div className="signal-row">
-                    <span className="signal"><span className="dot ok-dot" /> settlement online</span>
-                    <span className="signal"><span className="dot live-dot" /> activity indexed</span>
-                    <span className="signal"><span className="dot sync-dot" /> swap engine ready</span>
+                  <h3>Control your Tempo payment stack with a clean, production-style workflow.</h3>
+                  <p className="muted">Next step: {nextStep}</p>
+                  <div className="action-grid top-gap">
+                    <button className="ghost" onClick={() => goTo("onboarding")}>Setup Wallet</button>
+                    <button className="ghost" onClick={() => goTo("payments")}>Send Payment</button>
+                    <button className="ghost" onClick={() => goTo("split")}>Open Split</button>
+                    <button className="ghost" onClick={() => goTo("swap")}>Open Swap</button>
                   </div>
-                </div>
-                <div className="action-grid">
-                  <button className="ghost" onClick={() => goTo("onboarding")}>Setup Wallet</button>
-                  <button className="ghost" onClick={() => goTo("payments")}>Send Payment</button>
-                  <button className="ghost" onClick={() => goTo("split")}>Open Split</button>
-                  <button className="ghost" onClick={() => goTo("swap")}>Open Swap</button>
-                </div>
+                </section>
+                <section className="card panel readiness-panel">
+                  <h3>Readiness</h3>
+                  <ul className="list compact">
+                    <li><Badge ok={checks.hasWallet} /> Wallet configured</li>
+                    <li><Badge ok={checks.networkOk} /> Network validated</li>
+                    <li><Badge ok={checks.hasPayment} /> Payment executed</li>
+                    <li><Badge ok={checks.hasSwap} /> Swap/quote complete</li>
+                  </ul>
+                </section>
               </section>
 
-              <section className="dashboard-mini-grid">
-                <article className="card mini-panel">
-                  <span>Next step</span>
-                  <strong>{nextStep}</strong>
-                </article>
-                <article className="card mini-panel">
-                  <span>Target chain</span>
-                  <strong>{TEMPO.chainId}</strong>
-                </article>
-                <article className="card mini-panel">
-                  <span>Proof mode</span>
-                  <strong>{state.activities.length ? "Ready" : "Pending"}</strong>
-                </article>
-              </section>
-
-              <section className="grid-4">
+              <section className="grid-3">
                 <Metric title="Network" value={state.networkStatus} />
                 <Metric title="Wallet" value={state.walletAddress || "Not set"} />
                 <Metric title="AlphaUSD" value={state.balances.alpha || "-"} />
-                <Metric title="BetaUSD" value={state.balances.beta || "-"} />
               </section>
-              <section className="grid-2">
-                <section className="card panel feature-panel">
-                  <h3>System status</h3>
-                  <ul className="list compact">
-                    <li><Badge ok={checks.hasWallet} /> Wallet configured</li>
-                    <li><Badge ok={checks.networkOk} /> Connected to chain {TEMPO.chainId}</li>
-                    <li><Badge ok={checks.hasPayment} /> Payment flow executed</li>
-                    <li><Badge ok={checks.hasSwap} /> Quote/swap recorded</li>
-                  </ul>
-                  <div className="row top-gap">
-                    <button className="ghost" onClick={() => goTo("onboarding")}>Setup Wallet</button>
-                    <button className="ghost" onClick={() => goTo("payments")}>Send Payment</button>
-                    <button className="ghost" onClick={() => goTo("split")}>Run Split</button>
-                    <button className="ghost" onClick={() => goTo("swap")}>Quote Swap</button>
-                  </div>
-                </section>
-                <section className="card panel feature-panel">
-                  <h3>Recent activity</h3>
-                  <ul className="list compact">
-                    {state.activities.slice(0, 4).map((a, idx) => (
-                      <li key={idx}>
-                        <strong>{a.level}</strong> · {a.message}
-                      </li>
-                    ))}
-                    {!state.activities.length && <li>No activity yet. Start from Onboarding.</li>}
-                  </ul>
-                </section>
+
+              <section className="workflow-grid">
+                <article className="card workflow-card" onClick={() => goTo("onboarding")}><h4>Onboarding</h4><p>Wallet and RPC setup</p></article>
+                <article className="card workflow-card" onClick={() => goTo("payments")}><h4>Payments</h4><p>Transfer with memo</p></article>
+                <article className="card workflow-card" onClick={() => goTo("split")}><h4>Split</h4><p>Settle group balances</p></article>
+                <article className="card workflow-card" onClick={() => goTo("swap")}><h4>Swap</h4><p>Quote and execute</p></article>
               </section>
+
               <section className="card panel feature-panel">
-                <h3>Flow navigator</h3>
-                <div className="timeline-row">
-                  <button className="ghost" onClick={() => goTo("onboarding")}>1. Onboarding</button>
-                  <button className="ghost" onClick={() => goTo("payments")}>2. Payments</button>
-                  <button className="ghost" onClick={() => goTo("split")}>3. Split</button>
-                  <button className="ghost" onClick={() => goTo("swap")}>4. Swap</button>
-                  <button className="ghost" onClick={() => goTo("activity")}>5. Proof</button>
-                </div>
+                <h3>Recent activity</h3>
+                <ul className="list compact">
+                  {state.activities.slice(0, 6).map((a, idx) => (
+                    <li key={idx}>
+                      <strong>{a.level}</strong> · {a.message}
+                    </li>
+                  ))}
+                  {!state.activities.length && <li>No activity yet. Start from Onboarding.</li>}
+                </ul>
               </section>
-            </>
+            </div>
           )}
 
           {state.view === "onboarding" && (
