@@ -1,6 +1,6 @@
-# TempoPilot
+# [TempoPilot](https://vercel.com/malays-projects-bdae0712/tempo-pilot)
 
-TempoPilot is a React + Vite workspace for Tempo testnet flows with a clean UI.
+[TempoPilot](https://vercel.com/malays-projects-bdae0712/tempo-pilot) is a React + Vite workspace for Tempo testnet flows with a clean UI.
 
 ## Features
 
