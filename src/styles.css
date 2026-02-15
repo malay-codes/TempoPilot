@@ -578,6 +578,32 @@ label {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.dashboard-mini-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.mini-panel {
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(140deg, color-mix(in srgb, var(--surface-strong) 94%, transparent), color-mix(in srgb, var(--surface) 95%, var(--primary-soft)));
+}
+
+.mini-panel span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mini-panel strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1rem;
+}
+
 .grid-4 {
   display: grid;
   gap: 12px;
@@ -742,6 +768,10 @@ label {
 
   .action-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .dashboard-mini-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

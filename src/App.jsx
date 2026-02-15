@@ -84,9 +84,27 @@ const TOUR = [
   { view: "activity", text: "Show logs + tx links as proof." },
 ]
 
+const ROUTE_TO_VIEW = {
+  "/dashboard": "dashboard",
+  "/onboarding": "onboarding",
+  "/payments": "payments",
+  "/split": "split",
+  "/swap": "swap",
+  "/activity": "activity",
+}
+
+const VIEW_TO_ROUTE = {
+  dashboard: "/dashboard",
+  onboarding: "/onboarding",
+  payments: "/payments",
+  split: "/split",
+  swap: "/swap",
+  activity: "/activity",
+}
+
 function initialState() {
   return {
-    view: "dashboard",
+    view: getViewFromPath(),
     theme: localStorage.getItem(THEME_KEY) || "dark",
     sidebarOpen: false,
     mode: "mock",
@@ -156,6 +174,30 @@ export default function App() {
   useEffect(() => {
     if (!auth) return
     initSdk()
+  }, [auth])
+
+  useEffect(() => {
+    function onPopState() {
+      const routeView = getViewFromPath()
+      setState((s) => ({ ...s, view: routeView, sidebarOpen: false }))
+    }
+    window.addEventListener("popstate", onPopState)
+    return () => window.removeEventListener("popstate", onPopState)
+  }, [])
+
+  useEffect(() => {
+    if (!auth) return
+    const target = VIEW_TO_ROUTE[state.view] || "/dashboard"
+    if (window.location.pathname !== target) {
+      window.history.pushState({}, "", target)
+    }
+  }, [auth, state.view])
+
+  useEffect(() => {
+    if (auth) return
+    if (window.location.pathname !== "/") {
+      window.history.replaceState({}, "", "/")
+    }
   }, [auth])
 
   async function initSdk() {
@@ -472,11 +514,16 @@ export default function App() {
     const payload = { identifier: id, loggedInAt: Date.now() }
     localStorage.setItem(AUTH_KEY, JSON.stringify(payload))
     setAuth(payload)
+    const nextView = getViewFromPath()
+    const target = window.location.pathname === "/" ? "/dashboard" : (VIEW_TO_ROUTE[nextView] || "/dashboard")
+    setState((s) => ({ ...s, view: window.location.pathname === "/" ? "dashboard" : nextView }))
+    window.history.pushState({}, "", target)
   }
 
   function logout() {
     localStorage.removeItem(AUTH_KEY)
     setAuth(null)
+    window.history.pushState({}, "", "/")
   }
 
   function checklist() {
@@ -695,6 +742,21 @@ export default function App() {
                 </div>
               </section>
 
+              <section className="dashboard-mini-grid">
+                <article className="card mini-panel">
+                  <span>Next step</span>
+                  <strong>{nextStep}</strong>
+                </article>
+                <article className="card mini-panel">
+                  <span>Target chain</span>
+                  <strong>{TEMPO.chainId}</strong>
+                </article>
+                <article className="card mini-panel">
+                  <span>Proof mode</span>
+                  <strong>{state.activities.length ? "Ready" : "Pending"}</strong>
+                </article>
+              </section>
+
               <section className="grid-4">
                 <Metric title="Network" value={state.networkStatus} />
                 <Metric title="Wallet" value={state.walletAddress || "Not set"} />
@@ -879,4 +941,9 @@ function safeJson(value, fallback) {
   } catch {
     return fallback
   }
+}
+
+function getViewFromPath() {
+  if (typeof window === "undefined") return "dashboard"
+  return ROUTE_TO_VIEW[window.location.pathname] || "dashboard"
 }
