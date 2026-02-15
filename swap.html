@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempoPilot · Swap</title>
+    <link rel="stylesheet" href="./styles/workspace.css" />
+  </head>
+  <body data-page="swap">
+    <main class="workspace">
+      <header class="topbar card compact">
+        <h1>Swap Assistant</h1>
+        <div class="top-actions">
+          <button id="menu-toggle" type="button" class="ghost">Menu</button>
+          <span id="mode-pill" class="mode-pill">Mode: mock</span>
+          <span id="current-user" class="user-pill">Signed in</span>
+          <button id="check-network" type="button" class="ghost">Check Network</button>
+          <button id="start-tour" type="button" class="ghost">Tour</button>
+          <button id="theme-toggle" type="button" class="ghost">Theme</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <nav class="nav-links">
+            <a class="nav-link" href="./app.html">Dashboard</a>
+            <a class="nav-link" href="./onboarding.html">Onboarding</a>
+            <a class="nav-link" href="./payments.html">Payments</a>
+            <a class="nav-link" href="./split.html">Split</a>
+            <a class="nav-link" href="./swap.html">Swap</a>
+            <a class="nav-link" href="./activity.html">Activity</a>
+          </nav>
+          <section class="progress-box">
+            <h3>Progress</h3>
+            <ul>
+              <li><span id="chk-wallet" class="badge warn">todo</span> Wallet configured</li>
+              <li><span id="chk-network" class="badge warn">todo</span> Network validated</li>
+              <li><span id="chk-payment" class="badge warn">todo</span> Payment sent</li>
+              <li><span id="chk-swap" class="badge warn">todo</span> Quote or swap completed</li>
+            </ul>
+          </section>
+          <section class="next-box">
+            <h3>Next step</h3>
+            <p id="next-step" class="muted">Set wallet in Onboarding</p>
+          </section>
+        </aside>
+
+        <section class="main-grid">
+          <section class="card panel">
+            <h2>Guarded stablecoin swap</h2>
+            <form id="swap-form" class="form">
+              <label>Token In
+                <select id="swap-token-in">
+                  <option value="0x20c0000000000000000000000000000000000001">AlphaUSD</option>
+                  <option value="0x20c0000000000000000000000000000000000002">BetaUSD</option>
+                  <option value="0x20c0000000000000000000000000000000000003">ThetaUSD</option>
+                </select>
+              </label>
+              <label>Token Out
+                <select id="swap-token-out">
+                  <option value="0x20c0000000000000000000000000000000000002">BetaUSD</option>
+                  <option value="0x20c0000000000000000000000000000000000001">AlphaUSD</option>
+                  <option value="0x20c0000000000000000000000000000000000003">ThetaUSD</option>
+                </select>
+              </label>
+              <label>Amount In
+                <input id="swap-amount" type="number" step="0.01" value="100" />
+              </label>
+              <label>Slippage (bps)
+                <input id="swap-slippage" type="number" value="50" />
+              </label>
+              <label>Impact guard (bps)
+                <input id="swap-impact" type="number" value="20" />
+              </label>
+              <div class="row">
+                <button id="swap-quote" type="button" class="ghost">Get Quote</button>
+                <button type="submit">Execute Swap</button>
+              </div>
+            </form>
+            <div id="swap-result" class="result">No quote yet.</div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="tour-overlay" class="tour-overlay hidden" aria-hidden="true">
+      <div class="tour-card">
+        <div class="tour-head"><strong id="tour-title">Tour</strong><button id="tour-skip" type="button" class="ghost">Skip</button></div>
+        <p id="tour-text" class="muted">Welcome to TempoPilot.</p>
+        <div class="row"><button id="tour-next" type="button">Next</button></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

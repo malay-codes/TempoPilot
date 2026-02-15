@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempoPilot · Onboarding</title>
+    <link rel="stylesheet" href="./styles/workspace.css" />
+  </head>
+  <body data-page="onboarding">
+    <main class="workspace">
+      <header class="app-header card">
+        <div class="header-left">
+          <button id="menu-toggle" type="button" class="hamburger">Menu</button>
+          <a class="brand" href="./app.html">TempoPilot</a>
+          <nav class="header-nav">
+            <a class="nav-link" href="./app.html">Dashboard</a>
+            <a class="nav-link" href="./onboarding.html">Onboarding</a>
+            <a class="nav-link" href="./payments.html">Payments</a>
+            <a class="nav-link" href="./split.html">Split</a>
+            <a class="nav-link" href="./swap.html">Swap</a>
+            <a class="nav-link" href="./activity.html">Activity</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <span id="mode-pill" class="mode-pill">Mode: mock</span>
+          <span id="current-user" class="user-pill">Signed in</span>
+          <button id="check-network" type="button" class="ghost">Network</button>
+          <button id="start-tour" type="button" class="ghost">Tour</button>
+          <button id="theme-toggle" type="button" class="ghost">Theme</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <div id="nav-overlay" class="nav-overlay hidden"></div>
+
+      <section class="hero-strip card compact">
+        <div>
+          <p class="eyebrow">Step 1</p>
+          <h1>Wallet Onboarding</h1>
+        </div>
+      </section>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <section class="progress-box">
+            <h3>Progress</h3>
+            <ul>
+              <li><span id="chk-wallet" class="badge warn">todo</span> Wallet configured</li>
+              <li><span id="chk-network" class="badge warn">todo</span> Network validated</li>
+              <li><span id="chk-payment" class="badge warn">todo</span> Payment sent</li>
+              <li><span id="chk-swap" class="badge warn">todo</span> Quote or swap completed</li>
+            </ul>
+          </section>
+          <section class="next-box">
+            <h3>Next step</h3>
+            <p id="next-step" class="muted">Set wallet in Onboarding</p>
+          </section>
+        </aside>
+
+        <section class="main-grid">
+          <section class="card panel">
+            <h2>Setup wallet + RPC</h2>
+            <div class="row">
+              <button id="load-demo-wallet" type="button" class="ghost">Use Demo Wallet 1</button>
+              <button id="load-demo-wallet-2" type="button" class="ghost">Wallet 2</button>
+              <button id="load-demo-wallet-3" type="button" class="ghost">Wallet 3</button>
+            </div>
+            <form id="wallet-form" class="form top-gap">
+              <label>Private key (testnet)
+                <input id="wallet-key" placeholder="0x..." />
+              </label>
+              <label>RPC URL
+                <input id="rpc-url" value="https://rpc.moderato.tempo.xyz" />
+              </label>
+              <button type="submit">Save Wallet</button>
+            </form>
+            <div id="onboarding-status" class="result">No onboarding action yet.</div>
+          </section>
+
+          <section class="metrics-grid">
+            <article class="card metric"><span>Network</span><strong id="kpi-network">Not checked</strong></article>
+            <article class="card metric"><span>Wallet</span><strong id="kpi-wallet">Not set</strong></article>
+            <article class="card metric"><span>AlphaUSD</span><strong id="kpi-alpha">-</strong></article>
+            <article class="card metric"><span>BetaUSD</span><strong id="kpi-beta">-</strong></article>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="tour-overlay" class="tour-overlay hidden" aria-hidden="true">
+      <div class="tour-card">
+        <div class="tour-head"><strong id="tour-title">Tour</strong><button id="tour-skip" type="button" class="ghost">Skip</button></div>
+        <p id="tour-text" class="muted">Welcome to TempoPilot.</p>
+        <div class="row"><button id="tour-next" type="button">Next</button></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

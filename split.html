@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempoPilot · Split</title>
+    <link rel="stylesheet" href="./styles/workspace.css" />
+  </head>
+  <body data-page="split">
+    <main class="workspace">
+      <header class="app-header card">
+        <div class="header-left">
+          <button id="menu-toggle" type="button" class="hamburger">Menu</button>
+          <a class="brand" href="./app.html">TempoPilot</a>
+          <nav class="header-nav">
+            <a class="nav-link" href="./app.html">Dashboard</a>
+            <a class="nav-link" href="./onboarding.html">Onboarding</a>
+            <a class="nav-link" href="./payments.html">Payments</a>
+            <a class="nav-link" href="./split.html">Split</a>
+            <a class="nav-link" href="./swap.html">Swap</a>
+            <a class="nav-link" href="./activity.html">Activity</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <span id="mode-pill" class="mode-pill">Mode: mock</span>
+          <span id="current-user" class="user-pill">Signed in</span>
+          <button id="check-network" type="button" class="ghost">Network</button>
+          <button id="start-tour" type="button" class="ghost">Tour</button>
+          <button id="theme-toggle" type="button" class="ghost">Theme</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <div id="nav-overlay" class="nav-overlay hidden"></div>
+
+      <section class="hero-strip card compact">
+        <div>
+          <p class="eyebrow">Step 3</p>
+          <h1>Split & Settle</h1>
+        </div>
+      </section>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <section class="progress-box">
+            <h3>Progress</h3>
+            <ul>
+              <li><span id="chk-wallet" class="badge warn">todo</span> Wallet configured</li>
+              <li><span id="chk-network" class="badge warn">todo</span> Network validated</li>
+              <li><span id="chk-payment" class="badge warn">todo</span> Payment sent</li>
+              <li><span id="chk-swap" class="badge warn">todo</span> Quote or swap completed</li>
+            </ul>
+          </section>
+          <section class="next-box">
+            <h3>Next step</h3>
+            <p id="next-step" class="muted">Set wallet in Onboarding</p>
+          </section>
+        </aside>
+
+        <section class="main-grid two-col">
+          <section class="card panel">
+            <h2>Add member</h2>
+            <form id="member-form" class="form">
+              <label>Name<input id="member-name" placeholder="Ava" required /></label>
+              <label>Email/phone/0x<input id="member-idf" placeholder="ava@email.com" required /></label>
+              <button type="submit">Add Member</button>
+            </form>
+          </section>
+
+          <section class="card panel">
+            <h2>Add expense</h2>
+            <form id="expense-form" class="form">
+              <label>Description<input id="exp-desc" placeholder="Dinner" required /></label>
+              <label>Amount<input id="exp-amount" type="number" step="0.01" placeholder="120" required /></label>
+              <label>Payer<select id="exp-payer"></select></label>
+              <div>
+                <p class="muted mini">Participants</p>
+                <div id="exp-members" class="chips"></div>
+              </div>
+              <button type="submit">Add Expense</button>
+            </form>
+          </section>
+
+          <section class="card panel">
+            <h3>Balances</h3>
+            <ul id="split-balances" class="list"></ul>
+          </section>
+
+          <section class="card panel">
+            <h3>Settlement plan</h3>
+            <div class="row">
+              <button id="preview-settlement" type="button" class="ghost">Preview</button>
+              <button id="run-settlement" type="button">Settle All</button>
+            </div>
+            <ul id="settlement-plan" class="list top-gap"></ul>
+            <div id="split-status" class="result top-gap">No settlement yet.</div>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="tour-overlay" class="tour-overlay hidden" aria-hidden="true">
+      <div class="tour-card">
+        <div class="tour-head"><strong id="tour-title">Tour</strong><button id="tour-skip" type="button" class="ghost">Skip</button></div>
+        <p id="tour-text" class="muted">Welcome to TempoPilot.</p>
+        <div class="row"><button id="tour-next" type="button">Next</button></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

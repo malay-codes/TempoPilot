@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempoPilot · Activity</title>
+    <link rel="stylesheet" href="./styles/workspace.css" />
+  </head>
+  <body data-page="activity">
+    <main class="workspace">
+      <header class="topbar card compact">
+        <h1>Activity & Proof</h1>
+        <div class="top-actions">
+          <button id="menu-toggle" type="button" class="ghost">Menu</button>
+          <span id="mode-pill" class="mode-pill">Mode: mock</span>
+          <span id="current-user" class="user-pill">Signed in</span>
+          <button id="check-network" type="button" class="ghost">Check Network</button>
+          <button id="start-tour" type="button" class="ghost">Tour</button>
+          <button id="theme-toggle" type="button" class="ghost">Theme</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <nav class="nav-links">
+            <a class="nav-link" href="./app.html">Dashboard</a>
+            <a class="nav-link" href="./onboarding.html">Onboarding</a>
+            <a class="nav-link" href="./payments.html">Payments</a>
+            <a class="nav-link" href="./split.html">Split</a>
+            <a class="nav-link" href="./swap.html">Swap</a>
+            <a class="nav-link" href="./activity.html">Activity</a>
+          </nav>
+          <section class="progress-box">
+            <h3>Progress</h3>
+            <ul>
+              <li><span id="chk-wallet" class="badge warn">todo</span> Wallet configured</li>
+              <li><span id="chk-network" class="badge warn">todo</span> Network validated</li>
+              <li><span id="chk-payment" class="badge warn">todo</span> Payment sent</li>
+              <li><span id="chk-swap" class="badge warn">todo</span> Quote or swap completed</li>
+            </ul>
+          </section>
+          <section class="next-box">
+            <h3>Next step</h3>
+            <p id="next-step" class="muted">Set wallet in Onboarding</p>
+          </section>
+        </aside>
+
+        <section class="main-grid">
+          <section class="card panel">
+            <h2>Action timeline</h2>
+            <p class="muted">Use this page during judging to prove execution order and tx hashes.</p>
+            <ul id="activity-feed" class="list"></ul>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="tour-overlay" class="tour-overlay hidden" aria-hidden="true">
+      <div class="tour-card">
+        <div class="tour-head"><strong id="tour-title">Tour</strong><button id="tour-skip" type="button" class="ghost">Skip</button></div>
+        <p id="tour-text" class="muted">Welcome to TempoPilot.</p>
+        <div class="row"><button id="tour-next" type="button">Next</button></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

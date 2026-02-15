@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TempoPilot · Dashboard</title>
+    <link rel="stylesheet" href="./styles/workspace.css" />
+  </head>
+  <body data-page="dashboard">
+    <main class="workspace">
+      <header class="app-header card">
+        <div class="header-left">
+          <button id="menu-toggle" type="button" class="hamburger" aria-label="Toggle menu">Menu</button>
+          <a class="brand" href="./app.html">TempoPilot</a>
+          <nav class="header-nav">
+            <a class="nav-link" href="./app.html">Dashboard</a>
+            <a class="nav-link" href="./onboarding.html">Onboarding</a>
+            <a class="nav-link" href="./payments.html">Payments</a>
+            <a class="nav-link" href="./split.html">Split</a>
+            <a class="nav-link" href="./swap.html">Swap</a>
+            <a class="nav-link" href="./activity.html">Activity</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <span id="mode-pill" class="mode-pill">Mode: mock</span>
+          <span id="current-user" class="user-pill">Signed in</span>
+          <button id="check-network" type="button" class="ghost">Network</button>
+          <button id="start-tour" type="button" class="ghost">Tour</button>
+          <button id="theme-toggle" type="button" class="ghost">Theme</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <div id="nav-overlay" class="nav-overlay hidden"></div>
+
+      <section class="hero-strip card">
+        <div>
+          <p class="eyebrow">Tempo Moderato · Chain 42431</p>
+          <h1>Dashboard</h1>
+          <p class="muted">Multi-page workspace with guided Tempo actions and live feedback.</p>
+        </div>
+        <a class="cta-link" href="./onboarding.html">Start Setup</a>
+      </section>
+
+      <div class="layout">
+        <aside class="sidebar card">
+          <section class="progress-box">
+            <h3>Progress</h3>
+            <ul>
+              <li><span id="chk-wallet" class="badge warn">todo</span> Wallet configured</li>
+              <li><span id="chk-network" class="badge warn">todo</span> Network validated</li>
+              <li><span id="chk-payment" class="badge warn">todo</span> Payment sent</li>
+              <li><span id="chk-swap" class="badge warn">todo</span> Quote or swap completed</li>
+            </ul>
+          </section>
+          <section class="next-box">
+            <h3>Next step</h3>
+            <p id="next-step" class="muted">Set wallet in Onboarding</p>
+          </section>
+        </aside>
+
+        <section class="main-grid">
+          <section class="metrics-grid">
+            <article class="card metric"><span>Network</span><strong id="kpi-network">Not checked</strong></article>
+            <article class="card metric"><span>Wallet</span><strong id="kpi-wallet">Not set</strong></article>
+            <article class="card metric"><span>AlphaUSD</span><strong id="kpi-alpha">-</strong></article>
+            <article class="card metric"><span>BetaUSD</span><strong id="kpi-beta">-</strong></article>
+          </section>
+
+          <section class="card panel">
+            <h3>Cheatsheet values in use</h3>
+            <ul class="inline-list muted">
+              <li>RPC: <span class="mono">https://rpc.moderato.tempo.xyz</span></li>
+              <li>Chain ID: <span class="mono">42431</span></li>
+              <li>AlphaUSD: <span class="mono">0x...0001</span></li>
+              <li>BetaUSD: <span class="mono">0x...0002</span></li>
+              <li>ThetaUSD: <span class="mono">0x...0003</span></li>
+              <li>pathUSD: <span class="mono">0x...0000</span></li>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <div id="tour-overlay" class="tour-overlay hidden" aria-hidden="true">
+      <div class="tour-card">
+        <div class="tour-head"><strong id="tour-title">Tour</strong><button id="tour-skip" type="button" class="ghost">Skip</button></div>
+        <p id="tour-text" class="muted">Welcome to TempoPilot.</p>
+        <div class="row"><button id="tour-next" type="button">Next</button></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
