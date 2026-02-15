@@ -10,11 +10,6 @@
 - Swap quote and guarded swap execution
 - Activity timeline with explorer tx links
 
-## Tech Stack
-
-- React 18
-- Vite 5
-- JavaScript (ES modules)
 
 ## Tempo Testnet Values
 
@@ -43,12 +38,6 @@ npm run dev      # start dev server
 npm run build    # production build
 npm run preview  # preview production build
 ```
-
-## Project Structure
-
-- `src/App.jsx` - main app UI and flows
-- `src/styles.css` - full app styling/theme
-- `src/finance.js` - split/balance utility logic
 
 ## Notes
 
