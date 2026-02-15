@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+
 :root {
   --bg: #f5f7fb;
   --bg-2: #edf2fa;
@@ -17,6 +19,7 @@
   --radius-lg: 26px;
   --shadow-sm: 0 12px 24px rgba(8, 20, 43, 0.07);
   --shadow-lg: 0 24px 48px rgba(8, 20, 43, 0.14);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root[data-theme="dark"] {
@@ -50,7 +53,7 @@ body,
 body {
   margin: 0;
   color: var(--text);
-  font-family: "SF Pro Display", "Avenir Next", "Segoe UI Variable", sans-serif;
+  font-family: "Plus Jakarta Sans", "SF Pro Display", "Avenir Next", "Segoe UI Variable", sans-serif;
   line-height: 1.5;
   background:
     radial-gradient(980px 420px at -15% -10%, rgba(54, 120, 255, 0.28), transparent 60%),
@@ -64,7 +67,8 @@ h2,
 h3,
 h4 {
   margin: 0;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
 }
 
 p {
@@ -88,7 +92,7 @@ a:hover {
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: transform 220ms var(--ease-out), border-color 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
 }
 
 .card:hover {
@@ -142,7 +146,7 @@ button {
   font-weight: 680;
   padding: 10px 14px;
   cursor: pointer;
-  transition: transform 120ms ease, filter 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+  transition: transform 140ms var(--ease-out), filter 140ms var(--ease-out), border-color 140ms var(--ease-out), box-shadow 140ms var(--ease-out);
 }
 
 button:hover {
@@ -207,9 +211,9 @@ label {
 
 .landing {
   width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: clamp(20px, 4vw, 50px);
+  max-width: none;
+  margin: 0;
+  padding: clamp(16px, 2.8vw, 34px);
   display: grid;
   gap: 16px;
 }
@@ -263,19 +267,20 @@ label {
 .hero-copy {
   display: grid;
   gap: 12px;
-  animation: revealUp 640ms ease both;
+  animation: revealUp 640ms var(--ease-out) both;
 }
 
 .landing h1 {
-  font-size: clamp(2.3rem, 6vw, 4.9rem);
+  font-size: clamp(2.4rem, 6.5vw, 5.4rem);
   max-width: 11.5ch;
+  text-wrap: balance;
 }
 
 .hero-auth {
   padding: 18px;
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
-  animation: revealUp 760ms ease both;
+  animation: revealUp 760ms var(--ease-out) both;
 }
 
 .auth-form {
@@ -293,6 +298,17 @@ label {
 .showcase-card,
 .landing-card {
   padding: 20px;
+  animation: revealUp 700ms var(--ease-out) both;
+}
+
+.landing-showcase > *:nth-child(2),
+.landing-grid > *:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.landing-showcase > *:nth-child(3),
+.landing-grid > *:nth-child(3) {
+  animation-delay: 140ms;
 }
 
 .hero-stage {
@@ -353,6 +369,7 @@ label {
   top: 10px;
   z-index: 25;
   background: color-mix(in srgb, var(--surface) 84%, transparent);
+  animation: revealUp 520ms var(--ease-out) both;
 }
 
 .top-nav {
@@ -392,6 +409,7 @@ label {
   );
   position: relative;
   overflow: hidden;
+  animation: revealUp 700ms var(--ease-out) both;
 }
 
 .workspace-hero::after {
@@ -489,6 +507,7 @@ label {
 
 .panel {
   padding: 20px;
+  animation: revealUp 620ms var(--ease-out) both;
 }
 
 .feature-panel {
@@ -509,6 +528,10 @@ label {
   border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   background: linear-gradient(130deg, color-mix(in srgb, var(--primary-soft) 30%, transparent), transparent 75%);
   pointer-events: none;
+}
+
+.feature-panel:hover::after {
+  transform: rotate(16deg) translateY(4px);
 }
 
 .dashboard-hero {
@@ -570,12 +593,13 @@ label {
 .metric {
   padding: 16px;
   border-radius: var(--radius-md);
-  transition: transform 120ms ease, border-color 120ms ease;
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-out), box-shadow 180ms var(--ease-out);
 }
 
 .metric:hover {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--primary) 36%, var(--line));
+  box-shadow: 0 12px 20px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 .metric span {
@@ -651,6 +675,11 @@ label {
 
 .timeline-row .ghost {
   justify-content: flex-start;
+}
+
+.action-grid button,
+.timeline-row button {
+  min-height: 42px;
 }
 
 .app-foot {
@@ -780,6 +809,13 @@ label {
   .feature-panel::after,
   .workspace-content::before {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
